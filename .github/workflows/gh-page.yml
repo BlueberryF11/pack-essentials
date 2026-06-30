@@ -28,8 +28,11 @@ jobs:
       - name: build website
         run: npm run build
 
-      - name: copy index mapping
+      - name: Inject Missing Go Environment Files
         run: |
+          wget -O dist/wasm_exec.js https://githubusercontent.com
+          sed -i 's|href="/|href="./|g' dist/index.html
+          sed -i 's|src="/|src="./|g' dist/index.html
           cp dist/index.html dist/encrypt.html
           cp dist/index.html dist/decrypt.html
 
