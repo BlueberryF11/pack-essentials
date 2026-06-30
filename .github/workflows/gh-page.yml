@@ -17,31 +17,18 @@ jobs:
       - name: checkout
         uses: actions/checkout@v4
 
-      - name: setup go
-        uses: actions/setup-go@v5
-        with:
-          go-version: '1.21'
-
       - name: setup node
         uses: actions/setup-node@v4
         with:
           node-version: 20
 
-      - name: install tinygo
-        run: |
-          wget https://github.com
-          sudo dpkg -i tinygo_0.31.2_amd64.deb
-
-      - name: build wasm
-        run: chmod +x build_wasm.sh && ./build_wasm.sh
-
-      - name: install
+      - name: install dependencies
         run: npm ci
 
-      - name: build
+      - name: build website
         run: npm run build
 
-      - name: copy index
+      - name: copy index mapping
         run: |
           cp dist/index.html dist/encrypt.html
           cp dist/index.html dist/decrypt.html
